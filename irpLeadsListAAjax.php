@@ -134,7 +134,7 @@ WHERE
                     'telefon'   => $w['telefon'],
                     'email'     => $w['email'],
                     'level'     => $w['level'],
-                    'produkt'   => $w['produkt']
+                    'produkt'   => $w['nazwa_produktu']
                 );
             }
             $result->free();
