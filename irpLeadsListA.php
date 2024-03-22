@@ -64,6 +64,7 @@ alert($alert); ?>
                         <th>Telefon</th>
                         <th>E-mail</th>
                         <th style="width: 60px;">Level</th>
+                        <th>Produkt</th>
                         <th style="width: 50px;">zaznacz</th>
                     </tr>
                 </thead>
@@ -92,6 +93,7 @@ alert($alert); ?>
                         <th>Telefon</th>
                         <th>E-mail</th>
                         <th style="width: 60px;">Level</th>
+                        <th>Produkt</th>
                         <th style="width: 50px;">zaznacz</th>
                     </tr>
                 </thead>
@@ -146,12 +148,17 @@ window.onload = function()
     // ZAZNACZ WIELE LEADOW I WYŚWIETL FORMULARZ
     $(document).on('click','.btn-add-task-to-many',function(e)
     {
-        
+        e.preventDefault();
+        let grupa_leadow = $(this).parents('.grupa-leadow');
 
-        
+        // Odznacz wszystkie rzędy
+        grupa_leadow.find('input[data-klient-id]:checked').prop('checked', false);
 
+        // Zaznacz odpowiednią ilość rzędów
+        let ile = e.target.dataset.ile;
+        grupa_leadow.find('input[data-klient-id]').slice(0, ile).prop('checked', true);
 
-
+        return dodaj_zadanie_do_zaznaczonych_leadow(grupa_leadow);
     });
     
 
@@ -169,6 +176,13 @@ window.onload = function()
     {
         e.preventDefault();
         var grupa_leadow = $(this).parents('.grupa-leadow');
+
+        return dodaj_zadanie_do_zaznaczonych_leadow(grupa_leadow);
+    });
+
+
+    function dodaj_zadanie_do_zaznaczonych_leadow(grupa_leadow)
+    {
         var zaznaczone = $('input[data-klient-id]:checked',grupa_leadow);
         var len = zaznaczone.length;
         if(len){
@@ -179,7 +193,7 @@ window.onload = function()
             bootbox.alert('Zaznacz przynajmniej jednego leada.');
             return false;
         }
-    });
+    }
 
 
     $(document).on('submit','#przydziel-zadanie-form',function(e)
